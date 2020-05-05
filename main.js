@@ -1,7 +1,22 @@
 // pulsante next: qualndo l'utente clicca, devo spostare la classe active all'img successiva
 
 // intercettare il click sulla classe next
-$('.next').click(function() {
+$('.next').click(slide_successiva);
+
+// intercettare il click sulla classe prev
+$('.prev').click(slide_precedente);
+
+// imposto l'autoplay
+var clock = setInterval(slide_successiva, 3000);
+
+// intercetto il click sul pulsante pausa autolay
+$('#pausa').click(function() {
+    // interrompo il setInterval
+    clearInterval(clock);
+    $('#pausa').prop('disabled', true);
+});
+
+function slide_successiva() {
     // recupero l'img che ha la classe active in questo momento
     var img_corrente = $('img.active');
     // recupero il pallino corrente
@@ -32,11 +47,9 @@ $('.next').click(function() {
         // non c'è un pallino successivo => riparto dal primo
         $('.fa-circle:first-child').addClass('active');
     }
-});
+}
 
-
-// intercettare il click sulla classe prev
-$('.prev').click(function() {
+function slide_precedente() {
     // recupero l'img che ha la classe active in questo momento
     var img_corrente = $('img.active');
     // recupero il pallino corrente
@@ -54,20 +67,18 @@ $('.prev').click(function() {
 
     // verifico che esista un img precedente
     if(img_precedente.length != 0) {
-        console.log('esiste img prev');
         // c'è un img precedente
         // metto la classe active all'img precedente
         img_precedente.addClass('active');
+
         // metto la classe active al pallino precedente
         pallino_precedente.addClass('active');
     } else {
-        console.log('img prev non esiste');
         // non c'è un img precedente => riparto dalla fine
         img_precedente = $('img:last-of-type');
-        console.log(img_precedente);
         img_precedente.addClass('active');
 
         // non c'è un pallino successivo => riparto dal primo
         $('.fa-circle:last-child').addClass('active');
     }
-});
+}
