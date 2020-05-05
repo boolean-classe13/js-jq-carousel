@@ -16,6 +16,29 @@ $('#pausa').click(function() {
     $('#pausa').prop('disabled', true);
 });
 
+// intercetto il click sui pallini
+$('.bullets .fa-circle').click(function() {
+    // recupero l'immagine corrente
+    var img_corrente = $('img.active');
+    // recupero il pallino corrente
+    var pallino_corrente = $('.fa-circle.active');
+
+    // tolgo la classe active all'immagine corrente
+    img_corrente.removeClass('active');
+    // tolgo la classe active al pallino corrente
+    pallino_corrente.removeClass('active');
+
+    // aggiungo la classe active al pallino su cui l'utente ha cliccato
+    $(this).addClass('active');
+    // recupero l'immagine corrispondente al pallino su cui l'utente ha cliccato
+    // recupero la posizione del pallino su cui l'utente ha cliccato
+    var posizione = $(this).index();
+    // recupero l'immagine con la stessa posizione del pallino
+    var nuova_immagine = $('.slide img').eq(posizione);
+    // a questa immagine aggiungo la classe active
+    nuova_immagine.addClass('active');
+});
+
 function slide_successiva() {
     // recupero l'img che ha la classe active in questo momento
     var img_corrente = $('img.active');
@@ -26,7 +49,7 @@ function slide_successiva() {
     img_corrente.removeClass('active');
     // tolgo la classe active al pallino corrente
     pallino_corrente.removeClass('active');
-
+    
     // recupero l'immagine siccessiva
     var img_successiva = img_corrente.next('img');
     // recupero il pallino successivo
